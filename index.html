@@ -4,25 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sindhura & Apurv's Movie Night 💜</title>
+    
+    <!-- Styles & Fonts -->
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Supabase CDN (Required for database) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <!-- Background Music -->
-    <audio id="bgMusic" autoplay loop>
+    <!-- Background Music (plays on user interaction) -->
+    <audio id="bgMusic" loop preload="auto">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
 
     <div class="container">
-        <!-- Initial Message Section -->
+        
+        <!-- ========== SECTION 1: Initial Message ========== -->
         <div id="messageSection" class="section">
             <h1 class="title">Hey Sindhura! 💜</h1>
+            
             <div class="photo-grid">
+                <!-- Replace 📸 with actual images: <img src="photo1.jpg" alt="Us"> -->
                 <div class="photo-slot">📸</div>
                 <div class="photo-slot">📸</div>
                 <div class="photo-slot">📸</div>
                 <div class="photo-slot">📸</div>
             </div>
+            
             <p class="romantic-text">
                 You know what? I'm tired of waiting for you to be on time... 
                 but I still want to spend every late moment with you! 😏
@@ -33,29 +43,35 @@
             <p class="question-text">
                 Will you watch a movie with me?
             </p>
+            
             <div class="button-container">
                 <button id="yesBtn" class="btn yes-btn">Yes! 💕</button>
                 <button id="noBtn" class="btn no-btn">No 😢</button>
             </div>
         </div>
 
-        <!-- Form Section (Hidden initially) -->
+        <!-- ========== SECTION 2: Form (Hidden Initially) ========== -->
         <div id="formSection" class="section hidden">
             <h2 class="form-title">Yay! Let's Plan It! 🎬</h2>
-            <form id="movieForm">
+            
+            <form id="movieForm" novalidate>
+                <!-- Movie Name -->
                 <div class="form-group">
                     <label for="movieName">What movie should we watch?</label>
-                    <input type="text" id="movieName" name="movieName" required placeholder="Enter movie name...">
+                    <input type="text" id="movieName" name="movieName" required 
+                           placeholder="Enter movie name..." autocomplete="off">
                 </div>
                 
+                <!-- Date & Time (Split for iOS) -->
                 <div class="form-group">
-    <label>When? (Date & Time)</label>
-    <div class="datetime-inputs">
-        <input type="date" id="movieDate" required>
-        <input type="time" id="movieTime" required>
-    </div>
-</div>
+                    <label>When? (Date & Time)</label>
+                    <div class="datetime-inputs">
+                        <input type="date" id="movieDate" name="movieDate" required>
+                        <input type="time" id="movieTime" name="movieTime" required>
+                    </div>
+                </div>
                 
+                <!-- Beverages Question -->
                 <div class="form-group">
                     <label>Do you have beverages ready?</label>
                     <div class="radio-group">
@@ -74,10 +90,11 @@
             </form>
         </div>
 
-        <!-- Countdown & Early Message Section (Hidden initially) -->
+        <!-- ========== SECTION 3: Countdown (Hidden Initially) ========== -->
         <div id="countdownSection" class="section hidden">
             <h2 class="countdown-title">It's A Date! 🎉</h2>
             
+            <!-- Playful "Be Early" Reminder -->
             <div class="early-reminder">
                 <p class="late-message">
                     Even though you'll show up 45 mins late, let's pretend it's 
@@ -89,6 +106,7 @@
                 </p>
             </div>
 
+            <!-- Live Countdown Timer -->
             <div class="countdown-container">
                 <h3>Countdown to Movie Night:</h3>
                 <div id="countdown" class="countdown">
@@ -111,21 +129,24 @@
                 </div>
             </div>
 
+            <!-- Final Message -->
             <div class="celebration">
                 <p class="love-message">Can't wait to see your beautiful face (even if it's late)! 💜</p>
                 <p class="signature">- Love, Apurv</p>
             </div>
 
-            <!-- Monkey Animation Container -->
+            <!-- Monkey Animation (Hidden by default) -->
             <div id="monkeyContainer" class="monkey-container hidden">
                 <div class="monkey">🐵</div>
             </div>
         </div>
+
     </div>
 
-    <!-- Confetti Canvas -->
+    <!-- Confetti Canvas (Overlay) -->
     <canvas id="confettiCanvas"></canvas>
 
+    <!-- Main JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
