@@ -144,6 +144,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     return;
                 }
                 
+                // Must be in the future
+                if (combinedDateTime.getTime() <= Date.now()) {
+                    alert('Oi! 😤 Pick a future date and time — you can\'t watch a movie in the past, time traveller! ⏳');
+                    return;
+                }
+                
                 const formData = {
                     movieName,
                     movieDate: dateVal,
