@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sindhura & Apurv's Movie Night 💜</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="bgMusic" autoplay loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <!-- Initial Message Section -->
+        <div id="messageSection" class="section">
+            <h1 class="title">Hey Sindhura! 💜</h1>
+            <div class="photo-grid">
+                <div class="photo-slot">📸</div>
+                <div class="photo-slot">📸</div>
+                <div class="photo-slot">📸</div>
+                <div class="photo-slot">📸</div>
+            </div>
+            <p class="romantic-text">
+                You know what? I'm tired of waiting for you to be on time... 
+                but I still want to spend every late moment with you! 😏
+            </p>
+            <p class="funny-text">
+                (Yes, this is about that 5:45 thing when you said 5:00 🙃)
+            </p>
+            <p class="question-text">
+                Will you watch a movie with me?
+            </p>
+            <div class="button-container">
+                <button id="yesBtn" class="btn yes-btn">Yes! 💕</button>
+                <button id="noBtn" class="btn no-btn">No 😢</button>
+            </div>
+        </div>
+
+        <!-- Form Section (Hidden initially) -->
+        <div id="formSection" class="section hidden">
+            <h2 class="form-title">Yay! Let's Plan It! 🎬</h2>
+            <form id="movieForm">
+                <div class="form-group">
+                    <label for="movieName">What movie should we watch?</label>
+                    <input type="text" id="movieName" name="movieName" required placeholder="Enter movie name...">
+                </div>
+                
+                <div class="form-group">
+    <label>When? (Date & Time)</label>
+    <div class="datetime-inputs">
+        <input type="date" id="movieDate" required>
+        <input type="time" id="movieTime" required>
+    </div>
+</div>
+                
+                <div class="form-group">
+                    <label>Do you have beverages ready?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="beverages" value="yes" required>
+                            Yes, I'm prepared! 🥤
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="beverages" value="no">
+                            No, but Apurv will bring! ☕
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn submit-btn">Confirm Date! 💜</button>
+            </form>
+        </div>
+
+        <!-- Countdown & Early Message Section (Hidden initially) -->
+        <div id="countdownSection" class="section hidden">
+            <h2 class="countdown-title">It's A Date! 🎉</h2>
+            
+            <div class="early-reminder">
+                <p class="late-message">
+                    Even though you'll show up 45 mins late, let's pretend it's 
+                    <span id="earlyTime" class="early-time"></span> ⏰
+                </p>
+                <p class="reminder-text">
+                    (Be on Google Meet 15 mins before the movie starts... 
+                    we both know you'll need that buffer! 😏)
+                </p>
+            </div>
+
+            <div class="countdown-container">
+                <h3>Countdown to Movie Night:</h3>
+                <div id="countdown" class="countdown">
+                    <div class="countdown-item">
+                        <span id="days">00</span>
+                        <label>Days</label>
+                    </div>
+                    <div class="countdown-item">
+                        <span id="hours">00</span>
+                        <label>Hours</label>
+                    </div>
+                    <div class="countdown-item">
+                        <span id="minutes">00</span>
+                        <label>Mins</label>
+                    </div>
+                    <div class="countdown-item">
+                        <span id="seconds">00</span>
+                        <label>Secs</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="celebration">
+                <p class="love-message">Can't wait to see your beautiful face (even if it's late)! 💜</p>
+                <p class="signature">- Love, Apurv</p>
+            </div>
+
+            <!-- Monkey Animation Container -->
+            <div id="monkeyContainer" class="monkey-container hidden">
+                <div class="monkey">🐵</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
