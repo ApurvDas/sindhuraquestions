@@ -79,10 +79,156 @@ body::before {
     width: 100%;
     overflow: hidden;
     backdrop-filter: blur(10px);
+    position: relative;
+}
+
+.section > :not(.heart-field) {
+    position: relative;
+    z-index: 1;
 }
 
 .hidden {
     display: none !important;
+}
+
+.heart-field {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    display: block;
+    font-family: Georgia, serif;
+    line-height: 1;
+    color: var(--plum);
+    opacity: 0.24;
+    filter: drop-shadow(0 6px 10px rgba(109, 63, 200, 0.16));
+}
+
+.heart-a {
+    top: 22px;
+    left: 18px;
+    font-size: 2.4rem;
+    transform: rotate(-18deg);
+}
+
+.heart-b {
+    top: 82px;
+    right: 18px;
+    font-size: 1.75rem;
+    color: var(--plum-mid);
+    opacity: 0.25;
+    transform: rotate(14deg);
+}
+
+.heart-c {
+    top: 34%;
+    left: 12px;
+    font-size: 1.45rem;
+    color: var(--plum-mid);
+    opacity: 0.22;
+    transform: rotate(20deg);
+}
+
+.heart-d {
+    right: 16px;
+    bottom: 132px;
+    font-size: 3rem;
+    opacity: 0.18;
+    transform: rotate(-12deg);
+}
+
+.heart-e {
+    left: 32px;
+    bottom: 36px;
+    font-size: 1.45rem;
+    color: #8a6ac8;
+    opacity: 0.24;
+    transform: rotate(10deg);
+}
+
+.heart-f {
+    right: 72px;
+    bottom: 30px;
+    font-size: 1.8rem;
+    color: var(--plum-mid);
+    opacity: 0.22;
+    transform: rotate(-24deg);
+}
+
+.heart-g {
+    top: 134px;
+    left: 22px;
+    font-size: 1rem;
+    color: #7b4bd8;
+    opacity: 0.2;
+    transform: rotate(28deg);
+}
+
+.heart-h {
+    top: 156px;
+    right: 42px;
+    font-size: 1.15rem;
+    color: #8d6be0;
+    opacity: 0.22;
+    transform: rotate(-18deg);
+}
+
+.heart-i {
+    top: 48%;
+    right: 20px;
+    font-size: 1.2rem;
+    opacity: 0.18;
+    transform: rotate(18deg);
+}
+
+.heart-j {
+    top: 58%;
+    left: 18px;
+    font-size: 1.75rem;
+    color: var(--plum-mid);
+    opacity: 0.2;
+    transform: rotate(-10deg);
+}
+
+.heart-k {
+    right: 22px;
+    bottom: 72px;
+    font-size: 1.35rem;
+    color: #7b4bd8;
+    opacity: 0.24;
+    transform: rotate(16deg);
+}
+
+.heart-l {
+    left: 78px;
+    bottom: 86px;
+    font-size: 1.1rem;
+    color: var(--plum-mid);
+    opacity: 0.2;
+    transform: rotate(-26deg);
+}
+
+.heart-m {
+    left: 50%;
+    bottom: 18px;
+    font-size: 0.95rem;
+    color: var(--plum);
+    opacity: 0.2;
+    transform: translateX(-50%) rotate(12deg);
+}
+
+.heart-n {
+    right: 34px;
+    top: 24px;
+    font-size: 0.95rem;
+    color: var(--plum-mid);
+    opacity: 0.28;
+    transform: rotate(-8deg);
 }
 
 @keyframes rise {
