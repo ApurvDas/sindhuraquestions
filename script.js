@@ -1,205 +1,185 @@
-// ========================================
-// 🚀 SAFE INITIALIZATION - WAIT FOR DOM & SUPABASE
-// ========================================
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('💜 Movie date page loaded for Sindhura!');
-    
-    // Wait for Supabase CDN to load
+    console.log('\uD83D\uDC95 Movie date page loaded for Sindhura!');
+
     if (typeof window.supabase === 'undefined') {
-        console.error('❌ Supabase CDN not loaded! Check index.html has the script tag.');
+        console.error('Supabase CDN not loaded. Check index.html has the script tag.');
         return;
     }
-    
-    // ========================================
-    // 🔑 SUPABASE CONFIGURATION
-    // ========================================
+
     const SUPABASE_URL = 'https://novyjhbreduracrrueih.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vdnlqaGJyZWR1cmFjcnJ1ZWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NTY1OTcsImV4cCI6MjA5NDIzMjU5N30.rVU7CUnX_y3DhC9Mv4JIIiLhO_8ZygkZKq-FLUrUQSE';
-    
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    console.log('✅ Supabase client initialized');
 
-    // ========================================
-    // 🎯 DOM ELEMENTS (Now safe - DOM is ready)
-    // ========================================
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     const messageSection = document.getElementById('messageSection');
     const formSection = document.getElementById('formSection');
     const countdownSection = document.getElementById('countdownSection');
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
     const movieForm = document.getElementById('movieForm');
-    const monkeyContainer = document.getElementById('monkeyContainer');
+    const stickerContainer = document.getElementById('stickerContainer');
     const confettiCanvas = document.getElementById('confettiCanvas');
     const bgMusic = document.getElementById('bgMusic');
     const earlyTimeEl = document.getElementById('earlyTime');
+    const submitBtn = movieForm?.querySelector('.submit-btn');
 
-    // Verify critical elements exist
     if (!yesBtn || !noBtn || !movieForm) {
-        console.error('❌ One or more required elements not found! Check HTML IDs.');
+        console.error('One or more required elements were not found. Check HTML IDs.');
         return;
     }
-    console.log('✅ All DOM elements found');
 
-    // State variables
     let movieDateTime = null;
     let countdownInterval = null;
 
-    // ========================================
-    // 🏃♀️ NO BUTTON - RUN AWAY FUNCTIONALITY
-    // ========================================
+    function showSticker(duration = 2400) {
+        if (!stickerContainer) return;
+
+        stickerContainer.classList.remove('hidden');
+        setTimeout(() => {
+            stickerContainer.classList.add('hidden');
+        }, duration);
+    }
+
+    function setSubmitting(isSubmitting) {
+        if (!submitBtn) return;
+
+        submitBtn.disabled = isSubmitting;
+        submitBtn.textContent = isSubmitting
+            ? 'Saving our plan...'
+            : submitBtn.dataset.defaultLabel || 'Confirm our date \uD83D\uDC95';
+    }
+
     function moveButton() {
         const container = document.querySelector('.button-container');
         if (!container || !noBtn) return;
-        
+
         const containerRect = container.getBoundingClientRect();
         const btnRect = noBtn.getBoundingClientRect();
-        
-        const maxX = containerRect.width - btnRect.width - 20;
-        const maxY = 80; // Limited vertical movement
-        
+
+        const maxX = Math.max(containerRect.width - btnRect.width - 20, 0);
+        const maxY = 70;
         const randomX = (Math.random() * maxX) - (maxX / 2);
         const randomY = (Math.random() * maxY) - (maxY / 2);
-        
+
         noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
         noBtn.style.position = 'relative';
         noBtn.style.transition = 'transform 0.15s ease-out';
     }
 
-    // Multiple event listeners for maximum compatibility
     noBtn.addEventListener('mouseover', moveButton);
     noBtn.addEventListener('mouseenter', moveButton);
-    
-    noBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+
+    noBtn.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         moveButton();
     }, { passive: false });
-    
-    noBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+
+    noBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         moveButton();
-        return false;
     });
 
-    // ========================================
-    // 💕 YES BUTTON - SHOW FORM + CELEBRATION
-    // ========================================
+    movieForm.querySelectorAll('input[name="beverages"]').forEach((input) => {
+        input.addEventListener('change', () => {
+            movieForm.querySelectorAll('.radio-label').forEach((label) => {
+                label.classList.toggle('is-selected', label.contains(input));
+            });
+        });
+    });
+
     yesBtn.addEventListener('click', () => {
-        console.log('✅ Yes button clicked!');
-        
-        // Play music (iOS requires user interaction first)
         if (bgMusic) {
-            bgMusic.play().catch(e => {
-                console.log('🔇 Audio autoplay blocked - will play on next interaction:', e);
+            bgMusic.play().catch((error) => {
+                console.log('Audio autoplay blocked until another interaction:', error);
             });
         }
-        
-        // Trigger celebrations
+
         startConfetti();
-        
-        if (monkeyContainer) {
-            monkeyContainer.classList.remove('hidden');
-            setTimeout(() => {
-                monkeyContainer.classList.add('hidden');
-            }, 3000);
-        }
-        
-        // Show form after animation
+        showSticker();
+
         setTimeout(() => {
-            if (messageSection) messageSection.classList.add('hidden');
-            if (formSection) formSection.classList.remove('hidden');
-        }, 1500);
+            messageSection?.classList.add('hidden');
+            formSection?.classList.remove('hidden');
+        }, 1200);
     });
 
-    // ========================================
-    // 📝 FORM SUBMISSION HANDLER
-    // ========================================
-    if (movieForm) {
-        movieForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            console.log('📝 Form submitted');
-            
-            try {
-                const dateVal = document.getElementById('movieDate')?.value;
-                const timeVal = document.getElementById('movieTime')?.value;
-                const movieName = document.getElementById('movieName')?.value;
-                const beveragesInput = document.querySelector('input[name="beverages"]:checked');
-                
-                // Validate
-                if (!dateVal || !timeVal) {
-                    alert('Please select both date and time! 📅⏰');
-                    return;
-                }
-                if (!beveragesInput) {
-                    alert('Please select if you have beverages! 🥤☕');
-                    return;
-                }
-                
-                const beveragesVal = beveragesInput.value;
-                const combinedDateTime = new Date(`${dateVal}T${timeVal}`);
-                
-                if (isNaN(combinedDateTime.getTime())) {
-                    alert('Please select a valid date and time! 📅');
-                    return;
-                }
-                
-                // Must be in the future
-                if (combinedDateTime.getTime() <= Date.now()) {
-                    alert('Oi! 😤 Pick a future date and time — you can\'t watch a movie in the past, time traveller! ⏳');
-                    return;
-                }
-                
-                const formData = {
-                    movieName,
-                    movieDate: dateVal,
-                    movieTime: timeVal,
-                    combinedDateTime: combinedDateTime.toISOString(),
-                    beverages: beveragesVal,
-                    submittedAt: new Date().toISOString(),
-                    from: 'Apurv',
-                    to: 'Sindhura Kashyap'
-                };
-                
-                // Calculate early time reminder
-                if (earlyTimeEl) {
-                    const earlyDateTime = new Date(combinedDateTime.getTime() - 15 * 60000);
-                    const earlyTimeString = earlyDateTime.toLocaleTimeString('en-US', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: true
-                    });
-                    earlyTimeEl.textContent = earlyTimeString;
-                }
-                
-                // Save to database
-                await saveToDatabase(formData, supabase);
-                
-                // Show countdown section
-                if (formSection) formSection.classList.add('hidden');
-                if (countdownSection) countdownSection.classList.remove('hidden');
-                
-                // Start countdown
-                movieDateTime = combinedDateTime;
-                startCountdown();
-                
-                // Final celebration
-                startConfetti();
-                if (monkeyContainer) {
-                    monkeyContainer.classList.remove('hidden');
-                    setTimeout(() => monkeyContainer.classList.add('hidden'), 3000);
-                }
-                
-            } catch (error) {
-                console.error('❌ Form submission error:', error);
-                alert('Oops! Something went wrong. Please try again! 💜');
-            }
-        });
-    }
+    movieForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-    // ========================================
-    // 🗄️ SAVE TO SUPABASE DATABASE
-    // ========================================
+        const dateVal = document.getElementById('movieDate')?.value;
+        const timeVal = document.getElementById('movieTime')?.value;
+        const movieName = document.getElementById('movieName')?.value.trim();
+        const beveragesInput = document.querySelector('input[name="beverages"]:checked');
+
+        if (!movieName) {
+            alert('Please enter a movie name.');
+            return;
+        }
+
+        if (!dateVal || !timeVal) {
+            alert('Please select both date and time.');
+            return;
+        }
+
+        if (!beveragesInput) {
+            alert('Please select if you have beverages ready.');
+            return;
+        }
+
+        const combinedDateTime = new Date(`${dateVal}T${timeVal}`);
+
+        if (Number.isNaN(combinedDateTime.getTime())) {
+            alert('Please select a valid date and time.');
+            return;
+        }
+
+        if (combinedDateTime.getTime() <= Date.now()) {
+            alert("Oi! Pick a future date and time. You can't watch a movie in the past, time traveller.");
+            return;
+        }
+
+        const formData = {
+            movieName,
+            movieDate: dateVal,
+            movieTime: timeVal,
+            combinedDateTime: combinedDateTime.toISOString(),
+            beverages: beveragesInput.value,
+            submittedAt: new Date().toISOString(),
+            from: 'Apurv',
+            to: 'Sindhura Kashyap'
+        };
+
+        setSubmitting(true);
+
+        try {
+            if (earlyTimeEl) {
+                const earlyDateTime = new Date(combinedDateTime.getTime() - 15 * 60000);
+                earlyTimeEl.textContent = earlyDateTime.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                });
+            }
+
+            await saveToDatabase(formData, supabase);
+
+            formSection?.classList.add('hidden');
+            countdownSection?.classList.remove('hidden');
+
+            movieDateTime = combinedDateTime;
+            startCountdown();
+            startConfetti();
+            showSticker();
+        } catch (error) {
+            console.error('Form submission error:', error);
+            alert('Oops! Something went wrong. Please try again.');
+        } finally {
+            setSubmitting(false);
+        }
+    });
+
     async function saveToDatabase(data, client) {
         try {
             const { error } = await client
@@ -214,33 +194,25 @@ document.addEventListener('DOMContentLoaded', async () => {
                     from_name: data.from,
                     to_name: data.to
                 }]);
-            
+
             if (error) throw error;
-            
-            console.log('✅ Data saved to Supabase');
+
             return { success: true };
-            
         } catch (error) {
-            console.error('❌ Supabase error:', error);
-            
-            // Fallback to localStorage
-            console.log('⚠️ Falling back to localStorage...');
+            console.error('Supabase error:', error);
+
             try {
                 const existing = JSON.parse(localStorage.getItem('movieDates') || '[]');
                 existing.push(data);
                 localStorage.setItem('movieDates', JSON.stringify(existing));
-                console.log('✅ Saved to localStorage');
                 return { success: true, fallback: true };
             } catch (localErr) {
-                console.error('❌ localStorage also failed:', localErr);
+                console.error('localStorage fallback failed:', localErr);
                 throw error;
             }
         }
     }
 
-    // ========================================
-    // ⏰ COUNTDOWN TIMER
-    // ========================================
     function startCountdown() {
         updateCountdown();
         if (countdownInterval) clearInterval(countdownInterval);
@@ -249,45 +221,40 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function updateCountdown() {
         if (!movieDateTime) return;
-        
-        const now = Date.now();
-        const distance = movieDateTime.getTime() - now;
-        
+
+        const distance = movieDateTime.getTime() - Date.now();
+
         if (distance < 0) {
             clearInterval(countdownInterval);
-            ['days','hours','minutes','seconds'].forEach(id => {
+            ['days', 'hours', 'minutes', 'seconds'].forEach((id) => {
                 const el = document.getElementById(id);
                 if (el) el.textContent = '00';
             });
             return;
         }
-        
+
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-        const ids = { days, hours, minutes, seconds };
-        Object.entries(ids).forEach(([key, val]) => {
+
+        Object.entries({ days, hours, minutes, seconds }).forEach(([key, val]) => {
             const el = document.getElementById(key);
             if (el) el.textContent = String(val).padStart(2, '0');
         });
     }
 
-    // ========================================
-    // 🎉 CONFETTI ANIMATION
-    // ========================================
     function startConfetti() {
         if (!confettiCanvas) return;
-        
+
         const ctx = confettiCanvas.getContext('2d');
         confettiCanvas.width = window.innerWidth;
         confettiCanvas.height = window.innerHeight;
-        
-        const colors = ['#9370db', '#dda0dd', '#e6e6fa', '#ff69b4', '#87ceeb', '#ffd700'];
+
+        const colors = ['#6d3fc8', '#e75f9d', '#f7a56b', '#7dbca5', '#fff2df', '#ffd166'];
         const pieces = [];
-        
-        for (let i = 0; i < 150; i++) {
+
+        for (let i = 0; i < 130; i++) {
             pieces.push({
                 x: Math.random() * confettiCanvas.width,
                 y: Math.random() * confettiCanvas.height - confettiCanvas.height,
@@ -299,57 +266,46 @@ document.addEventListener('DOMContentLoaded', async () => {
                 spin: Math.random() * 0.2 - 0.1
             });
         }
-        
+
         let frames = 0;
+
         function animate() {
             ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-            
-            pieces.forEach(p => {
+
+            pieces.forEach((piece) => {
                 ctx.save();
-                ctx.translate(p.x + p.w/2, p.y + p.h/2);
-                ctx.rotate(p.angle);
-                ctx.fillStyle = p.color;
-                ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+                ctx.translate(piece.x + piece.w / 2, piece.y + piece.h / 2);
+                ctx.rotate(piece.angle);
+                ctx.fillStyle = piece.color;
+                ctx.fillRect(-piece.w / 2, -piece.h / 2, piece.w, piece.h);
                 ctx.restore();
-                
-                p.y += p.speed;
-                p.angle += p.spin;
-                if (p.y > confettiCanvas.height) {
-                    p.y = -20;
-                    p.x = Math.random() * confettiCanvas.width;
+
+                piece.y += piece.speed;
+                piece.angle += piece.spin;
+
+                if (piece.y > confettiCanvas.height) {
+                    piece.y = -20;
+                    piece.x = Math.random() * confettiCanvas.width;
                 }
             });
-            
-            if (++frames < 300) {
+
+            if (++frames < 260) {
                 requestAnimationFrame(animate);
             } else {
                 ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
             }
         }
+
         animate();
     }
 
-    // ========================================
-    // 📱 iOS & RESPONSIVE UTILITIES
-    // ========================================
-    
-    // Resize canvas on window resize
     window.addEventListener('resize', () => {
         if (confettiCanvas) {
             confettiCanvas.width = window.innerWidth;
             confettiCanvas.height = window.innerHeight;
         }
     });
-    
-    // Prevent zoom on double-tap (iOS)
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', (e) => {
-        const now = Date.now();
-        if (now - lastTouchEnd <= 300) e.preventDefault();
-        lastTouchEnd = now;
-    }, { passive: false });
-    
-    // Unlock audio on first touch (iOS)
+
     document.addEventListener('touchstart', () => {
         if (bgMusic) {
             bgMusic.play().then(() => {
@@ -359,8 +315,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }, { once: true });
 
-    // ========================================
-    // ✅ ALL READY
-    // ========================================
-    console.log('🎬 App fully loaded! Buttons active, Supabase ready.');
+    console.log('\uD83C\uDFAC App fully loaded.');
 });

@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sindhura & Apurv's Movie Night 💜</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sindhura &amp; Apurv's Movie Night &#128149;</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
@@ -20,38 +20,38 @@
 
         <!-- SECTION 1: Initial Message -->
         <div id="messageSection" class="section">
-            <span class="title-eyebrow">a little something for you ✨</span>
-            <h1 class="title">Hey Sindhura 💜</h1>
+            <span class="title-eyebrow">a little something for you &#10024;</span>
+            <h1 class="title">Hey Sindhura &#128149;</h1>
 
             <div class="photo-grid">
-                <div class="photo-slot"><img src="pics/justapic.jpeg" alt="Us" loading="lazy"></div>
+                <div class="photo-slot hero-photo"><img src="pics/justapic.jpeg" alt="Us" loading="lazy"></div>
                 <div class="photo-slot"><img src="pics/pic2.jpeg" alt="Memory 1" loading="lazy"></div>
                 <div class="photo-slot"><img src="pics/pic3.jpeg" alt="Memory 2" loading="lazy"></div>
                 <div class="photo-slot"><img src="pics/pic4.jpeg" alt="Memory 3" loading="lazy"></div>
             </div>
 
-            <div class="divider">♡</div>
+            <div class="divider">&#9825;</div>
 
             <p class="romantic-text">
-                I'm tired of waiting for you to be on time…
-                but I still want to spend every late moment with you. 😏
+                I'm tired of waiting for you to be on time...
+                but I still want to spend every late moment with you. &#128527;
             </p>
-            <p class="funny-text">(Yes, this is about that 5:45 thing when you said 5:00 🙃)</p>
+            <p class="funny-text">(Yes, this is about that 5:45 thing when you said 5:00 &#128579;)</p>
             <p class="question-text">Will you watch a movie with me?</p>
 
             <div class="button-container">
-                <button id="yesBtn" class="btn yes-btn">Yes! 💕</button>
-                <button id="noBtn" class="btn no-btn">No 😢</button>
+                <button id="yesBtn" class="btn yes-btn">Yes! &#128149;</button>
+                <button id="noBtn" class="btn no-btn">No &#128546;</button>
             </div>
         </div>
 
         <!-- SECTION 2: Form -->
         <div id="formSection" class="section hidden">
-            <h2 class="form-title">Let's plan it! 🎬</h2>
+            <h2 class="form-title">Let's plan it! &#127916;</h2>
             <form id="movieForm" novalidate>
                 <div class="form-group">
                     <label for="movieName">What movie should we watch?</label>
-                    <input type="text" id="movieName" name="movieName" required placeholder="Enter movie name…" autocomplete="off">
+                    <input type="text" id="movieName" name="movieName" required placeholder="Enter movie name..." autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label>When? (pick a date &amp; time)</label>
@@ -65,34 +65,34 @@
                     <div class="radio-group">
                         <label class="radio-label">
                             <input type="radio" name="beverages" value="yes" required>
-                            Yes, I'm prepared! 🥤
+                            <span>Yes, I'm prepared! &#129380;</span>
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="beverages" value="no">
-                            No, but Apurv will bring! ☕
+                            <span>No, but Apurv will bring! &#9749;</span>
                         </label>
                     </div>
                 </div>
-                <button type="submit" class="btn submit-btn">Confirm our date 💜</button>
+                <button type="submit" class="btn submit-btn" data-default-label="Confirm our date &#128149;">Confirm our date &#128149;</button>
             </form>
         </div>
 
         <!-- SECTION 3: Countdown -->
         <div id="countdownSection" class="section hidden">
-            <h2 class="countdown-title">It's a date! 🎉</h2>
+            <h2 class="countdown-title">It's a date! &#127881;</h2>
             <div class="early-reminder">
                 <p class="late-message">
                     Even though you'll show up 45 mins late, let's pretend it's
-                    <span id="earlyTime" class="early-time"></span> ⏰
+                    <span id="earlyTime" class="early-time"></span> &#9200;
                 </p>
                 <p class="reminder-text">
-                    (Be on Google Meet 15 mins before the movie starts —
-                    we both know you'll need that buffer! 😏)
+                    (Be on Google Meet 15 mins before the movie starts -
+                    we both know you'll need that buffer! &#128527;)
                 </p>
             </div>
             <div class="countdown-container">
                 <h3>Countdown to movie night</h3>
-                <div id="countdown" class="countdown">
+                <div id="countdown" class="countdown" aria-live="polite">
                     <div class="countdown-item"><span id="days">00</span><label>Days</label></div>
                     <div class="countdown-item"><span id="hours">00</span><label>Hours</label></div>
                     <div class="countdown-item"><span id="minutes">00</span><label>Mins</label></div>
@@ -100,45 +100,22 @@
                 </div>
             </div>
             <div class="celebration">
-                <p class="love-message">Can't wait to see your beautiful face (even if it's late)! 💜</p>
-                <p class="signature">— Love, Apurv</p>
+                <p class="love-message">Can't wait to see your beautiful face (even if it's late)! &#128149;</p>
+                <p class="signature">- Love, Apurv</p>
             </div>
         </div>
 
     </div>
 
-    <!-- Twerking SVG Monkey -->
-    <div id="monkeyContainer" class="monkey-container hidden">
-        <div class="monkey">
-            <svg class="twerk-monkey" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg" width="130" height="195">
-                <circle cx="22" cy="52" r="14" fill="#8B5E3C"/>
-                <circle cx="98" cy="52" r="14" fill="#8B5E3C"/>
-                <circle cx="22" cy="52" r="8"  fill="#C68642"/>
-                <circle cx="98" cy="52" r="8"  fill="#C68642"/>
-                <ellipse cx="60" cy="50" rx="32" ry="30" fill="#8B5E3C"/>
-                <ellipse cx="60" cy="58" rx="20" ry="16" fill="#C68642"/>
-                <circle cx="48" cy="44" r="6"   fill="white"/>
-                <circle cx="72" cy="44" r="6"   fill="white"/>
-                <circle cx="49" cy="45" r="3.5" fill="#1a1a1a"/>
-                <circle cx="73" cy="45" r="3.5" fill="#1a1a1a"/>
-                <circle cx="50" cy="44" r="1.2" fill="white"/>
-                <circle cx="74" cy="44" r="1.2" fill="white"/>
-                <ellipse cx="60" cy="56" rx="5" ry="3.5" fill="#5a3620"/>
-                <circle cx="57.5" cy="55.5" r="1.5" fill="#3a2010"/>
-                <circle cx="62.5" cy="55.5" r="1.5" fill="#3a2010"/>
-                <path d="M50 63 Q60 73 70 63" stroke="#5a3620" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-                <ellipse cx="60" cy="115" rx="26" ry="32" fill="#8B5E3C"/>
-                <ellipse cx="60" cy="118" rx="16" ry="20" fill="#C68642"/>
-                <path d="M36 95 Q10 110 8 130"     stroke="#8B5E3C" stroke-width="12" fill="none" stroke-linecap="round"/>
-                <circle cx="8"   cy="132" r="7" fill="#C68642"/>
-                <path d="M84 95 Q110 110 112 130"  stroke="#8B5E3C" stroke-width="12" fill="none" stroke-linecap="round"/>
-                <circle cx="112" cy="132" r="7" fill="#C68642"/>
-                <path d="M46 142 Q38 160 34 172"   stroke="#8B5E3C" stroke-width="13" fill="none" stroke-linecap="round"/>
-                <ellipse cx="32" cy="174" rx="9" ry="5" fill="#C68642"/>
-                <path d="M74 142 Q82 160 86 172"   stroke="#8B5E3C" stroke-width="13" fill="none" stroke-linecap="round"/>
-                <ellipse cx="88" cy="174" rx="9" ry="5" fill="#C68642"/>
-                <path d="M86 130 Q115 120 112 95 Q109 75 95 80" stroke="#8B5E3C" stroke-width="7" fill="none" stroke-linecap="round"/>
-            </svg>
+    <!-- Celebration sticker -->
+    <div id="stickerContainer" class="sticker-container hidden" aria-hidden="true">
+        <div class="celebration-sticker">
+            <span class="sticker-sparkle sparkle-one">&#10024;</span>
+            <span class="sticker-sparkle sparkle-two">&#128149;</span>
+            <div class="film-ticket">Movie Night</div>
+            <div class="popcorn-cup">
+                <span></span><span></span><span></span><span></span>
+            </div>
         </div>
     </div>
 
